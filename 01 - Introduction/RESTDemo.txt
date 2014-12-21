@@ -1,0 +1,13 @@
+1. Navigate to odata.org and click on the services
+2. Click on the OData (read/write) example
+3. Copy the URL
+4. Send to receive various collections
+5. Now use the URL for Products (append to end)
+6. Copy a product
+7. Switch to raw
+8. Paste the product
+9. Set the ID to 99 and modify to insert
+10. Add @odata.type (#OdataDemo.Product)
+10. Change to POST and send
+11. Updated record is returned
+12. Get the list again

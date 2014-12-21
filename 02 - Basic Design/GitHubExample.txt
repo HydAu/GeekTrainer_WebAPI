@@ -1,0 +1,12 @@
+1. Log into GitHub
+2. Change to https://api.github.com/ (in browser)
+3. Check out the user_url 
+4. Access with JeremyLikness 
+5. Open the avatar URL
+6. Open the repos URL
+7. Note contributions too (i.e. angular.js)
+8. Note HTML URLs included 
+9. Open URL for AngularDebuggingAndPerformance
+10. Open the contents URL 
+11. Open the HTML URL for 01-exception-and-logging.html
+12. See the code!
