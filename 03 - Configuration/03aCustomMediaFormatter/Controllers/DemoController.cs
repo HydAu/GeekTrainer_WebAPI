@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using _02aContentNegotation.Models;
+using _03aCustomMediaFormatter.Models;
 
-namespace _02aContentNegotation.Controllers
+namespace _03aCustomMediaFormatter.Controllers
 {
     public class DemoController : ApiController
     {

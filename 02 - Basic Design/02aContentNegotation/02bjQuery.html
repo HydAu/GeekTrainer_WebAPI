@@ -1,33 +1,201 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Web API Design: Consuming a RESTful API with jQuery</title>
-    <script src="http://code.jquery.com/jquery-2.1.3.js"></script>
-</head>
+    <head>
+        <title>Web API Design: Consuming a RESTful API with jQuery</title>
+        <script src="http://code.jquery.com/jquery-2.1.3.js"></script>
+    </head>
     <body>
         <span id="status"></span>
+        <form role="form" id="editOrSubmit">
+            <input type="text" disabled id="identifier"/>
+            <input type="number" min="1" max="100" id="numberPart"/>
+            <input type="text" id="textPart"/>
+            <button disabled id="btnAdd">Add</button>
+            <button disabled id="btnUpdate">Update</button>
+            <button disabled id="btnDelete">Delete</button>
+            <button id="btnCancel">Cancel</button>
+        </form>
         <ul id="list"></ul>
         <script type="text/javascript">
 
-            'use strict';
+            window.App = window.App || (window.App = {});
 
-            $(window.document).ready(function () {
-                $('#status').text('Loading...');
-                $.ajax({
-                    url: '/api/Demo',
-                    method: 'Get',
-                    success: function (data) {
-                        $('#status').text('Success.');
-                        $.forEach(data, function(idx, item) {
-                            var li = $('<li>').text(item.Id);
-                            $('#list').append(li);
-                        });
+            $(window.document).ready(
+
+            (function (app) {
+
+                var statusDiv = $("#status"),
+                    list = $('#list'),
+                    addButton = $('#btnAdd'),
+                    updateButton = $('#btnUpdate'),
+                    deleteButton = $('#btnDelete'),
+                    cancelButton = $('#btnCancel'),
+                    numberPart = $('#numberPart'),
+                    textPart = $('#textPart'),
+                    identifier = $('#identifier'),
+                    buttonState = function(btn, disable) {
+                        if (disable) {
+                            btn.attr('disabled', 'disabled');
+                        } else {
+                            btn.removeAttr('disabled');
+                        }
                     },
-                    error: function(err) {
-                        alert('Encountered error: ' + err.toString());
+                    statusUpdate = function(status) {
+                        statusDiv.text(status);
+                    };
+
+                app.baseUrl = '/api/Demo/';
+
+                app.addReady = function () {
+
+                    buttonState(addButton, false);
+                    buttonState(updateButton, true);
+                    buttonState(deleteButton, true);
+
+                    textPart.val('');
+                    numberPart.val('');
+                    identifier.val('');
+                };
+
+                app.editReady = function (id) {
+
+                    buttonState(addButton, true);
+                    buttonState(updateButton, true);
+                    buttonState(deleteButton, true);
+
+                    identifier.val('');
+
+                    statusUpdate('Editing item...');
+
+                    $.ajax({
+                        type: 'Get',
+                        url: app.baseUrl + id,
+                        success: function (data) {
+                            statusUpdate('Ready to edit item.');
+                            identifier.val(data.Id);
+                            textPart.val(data.Text);
+                            numberPart.val(data.Number);
+                            buttonState(updateButton, false);
+                            buttonState(deleteButton, false);
+                        },
+                        error: function (err) {
+                            statusUpdate('An error occurred: ' + err.toString());
+                        }
+                    });
+                };
+
+                app.refresh = function () {
+                    $.ajax({
+                        type: 'Get',
+                        url: app.baseUrl,
+                        success: function (data) {
+                            list.empty();
+                            $.each(data, function (idx, item) {
+                                var anchor = $('<a href="#">').text(item.Id);
+                                anchor.bind('click', function (evt) {
+                                    evt.preventDefault();
+                                    app.editReady(item.Id);
+                                });
+                                var description = $('<span>').text(' ' + item.Number + ' - ' + item.Text);
+                                var li = $('<li>').append(anchor).append(description);
+                                list.append(li);
+                            });
+                            app.addReady();
+                        },
+                        error: function (err) {
+                            statusUpdate('Encountered error: ' + err.toString());
+                        }
+                    });
+                };
+
+                app.add = function(evt) {
+
+                    var num = numberPart.val(),
+                        txt = textPart.val();
+
+                    evt.preventDefault();
+
+                    statusUpdate('Adding new item...');
+
+                    $.ajax({
+                        type: 'Post',
+                        url: app.baseUrl,
+                        data: {
+                            "Number": num,
+                            "Text": txt
+                        },
+                        success: function(data) {
+                            statusUpdate("Added new item with id " + data.Id);
+                            app.refresh();
+                        },
+                        error: function(err) {
+                            statusUpdate("An error occurred: " + err.toString());
+                        }
+                    });
+                };
+
+                app.edit = function(evt) {
+
+                    var id = identifier.val(),
+                        num = numberPart.val(),
+                        txt = textPart.val();
+
+                    evt.preventDefault();
+
+                    statusUpdate('Editing item...');
+
+                    $.ajax({
+                        type: 'Put',
+                        url: app.baseUrl + id,
+                        data: {
+                            "Id": id,
+                            "Number": num,
+                            "Text": txt
+                        },
+                        success: function(data) {
+                            statusUpdate("Updated item with id " + data.Id);
+                            app.refresh();
+                        },
+                        error: function(err) {
+                            statusUpdate("An error occurred: " + err.toString());
+                        }
+                    });
+                };
+
+                app.delete = function(evt) {
+
+                    var id = identifier.val();
+
+                    evt.preventDefault();
+
+                    if (!confirm('Are you sure you wish to delete the item?')) {
+                        return;
                     }
-                });
-            });
+
+                    statusUpdate('Deleting item...');
+
+                    $.ajax({
+                        type: 'Delete',
+                        url: app.baseUrl + id,
+                        success: function() {
+                            statusUpdate("Deleted item with id " + id);
+                            app.refresh();
+                        },
+                        error: function(err) {
+                            statusUpdate("An error occurred: " + err.toString());
+                        }
+                    });
+                }
+
+                addButton.bind('click', app.add);
+                updateButton.bind('click', app.edit);
+                deleteButton.bind('click', app.delete);
+                cancelButton.bind('click', app.addReady);
+
+                app.refresh();
+
+            })(window.App));
+
         </script>
     </body>
 </html>

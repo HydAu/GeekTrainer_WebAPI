@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _02aContentNegotation.Models
+namespace _03aCustomMediaFormatter.Models
 {
     public class DemoItem
     {
