@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 using _03aCustomMediaFormatter.Formatters;
 
 namespace _03aCustomMediaFormatter
@@ -19,6 +20,16 @@ namespace _03aCustomMediaFormatter
             );
 
             config.Formatters.Add(new DemoItemCsvFormatter());
+
+            SetJsonSettings(config);
+        }
+
+        private static void SetJsonSettings(HttpConfiguration config)
+        {
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting
+                = Newtonsoft.Json.Formatting.Indented;
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver
+                = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
