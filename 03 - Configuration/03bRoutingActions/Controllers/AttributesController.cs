@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using _03bRoutingActions.Models;
 
 namespace _03bRoutingActions.Controllers
 {
@@ -9,34 +10,34 @@ namespace _03bRoutingActions.Controllers
         [Route("")]
         public IHttpActionResult Weird()
         {
-            return Ok(new { method = "defaultGet" });
+            return Ok(new SimpleResponse("defaultGet"));
         }
 
         [HttpGet]
         [Route("{id}")]
         public IHttpActionResult Strange(int id)
         {
-            return Ok(new { method = "byResource", id });
+            return Ok(new SimpleResponse(id, "byResource"));
         }
 
         [Route("foo")] 
         [HttpDelete]
         public IHttpActionResult Foo()
         {
-            return Ok(new { method = "fooDelete" });
+            return Ok(new SimpleResponse("fooDelete"));
         }
 
         [Route("bar/{id}")]
         [HttpDelete]
         public IHttpActionResult Bar(int id)
         {
-            return Ok(new { method = "barDelete", id });
+            return Ok(new SimpleResponse(id, "barDelete"));
         }
 
         [Route("bar/{id}")] 
         public IHttpActionResult PostBar(int id)
         {
-            return Ok(new { method = "barPost", id });
+            return Ok(new SimpleResponse(id, "barPost"));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
+using _03cCustomContentNegotiation.Models;
 
-namespace _03bRoutingActions
+namespace _03cCustomContentNegotiation
 {
     public static class WebApiConfig
     {
@@ -13,11 +14,11 @@ namespace _03bRoutingActions
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}"
             );
 
-            config.Formatters.XmlFormatter.UseXmlSerializer = false;
+            config.Formatters.Insert(0, new MyXmlMediaTypeFormatter()); 
+            config.Formatters.Insert(0, new MyJsonMediaTypeFormatter());            
         }
     }
 }

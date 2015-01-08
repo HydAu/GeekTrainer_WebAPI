@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using _03bRoutingActions.Models;
 
 namespace _03bRoutingActions.Controllers
 {
@@ -7,33 +8,33 @@ namespace _03bRoutingActions.Controllers
         // api/Conventions
         public IHttpActionResult Get()
         {
-            return Ok(new {method = "defaultGet" });
+            return Ok(new SimpleResponse("defaultGet"));
         }
 
         // api/Conventions/1
         public IHttpActionResult Get(int id)
         {
-            return Ok(new {method = "byResource", id});
+            return Ok(new SimpleResponse(id, "byResource"));
         }
 
         // api/Conventions 
         [HttpDelete]
         public IHttpActionResult Foo()
         {
-            return Ok(new { method = "fooDelete" });
+            return Ok(new SimpleResponse("fooDelete"));
         }
 
         // api/Conventions/1
         [HttpDelete]
         public IHttpActionResult Bar(int id)
         {
-            return Ok(new { method = "barDelete", id });
+            return Ok(new SimpleResponse(id, "barDelete"));
         }
 
         // api/Conventions/1 
         public IHttpActionResult PostBar(int id)
         {
-            return Ok(new { method = "barPost", id });
+            return Ok(new SimpleResponse(id, "barPost"));
         }
     }
 }
