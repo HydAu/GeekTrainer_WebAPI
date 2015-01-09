@@ -14,7 +14,7 @@ namespace _03cCustomContentNegotiation.Controllers
                 : new SimpleResponse("You got it!"));
         }
 
-        public IHttpActionResult Put(string message)
+        public IHttpActionResult Post(string message)
         {
             var path = string.Format("{0}/1", Request.RequestUri.AbsolutePath);
             return Ok(Request.Headers.Accept.Any(h => h.MediaType.EndsWith("hal+json"))
