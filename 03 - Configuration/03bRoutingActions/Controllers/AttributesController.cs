@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using _03bRoutingActions.Models;
 
 namespace _03bRoutingActions.Controllers
@@ -24,7 +26,8 @@ namespace _03bRoutingActions.Controllers
         [HttpDelete]
         public IHttpActionResult Foo()
         {
-            return Ok(new SimpleResponse("fooDelete"));
+            return ResponseMessage(
+                new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
         [Route("bar/{id}")]

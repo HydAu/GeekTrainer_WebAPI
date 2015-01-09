@@ -7,7 +7,8 @@ namespace _03cCustomContentNegotiation.Models
     {
         public MyJsonMediaTypeFormatter() 
         {
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json+full"));              
+            SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json+full"));
+            SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/hal+json"));
         }
     }
 }

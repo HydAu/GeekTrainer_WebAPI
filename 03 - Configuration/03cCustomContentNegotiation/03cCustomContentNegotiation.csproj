@@ -82,6 +82,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HateoasResult.cs" />
     <Compile Include="Models\MyJsonMediaTypeFormatter.cs" />
     <Compile Include="Models\MyXmlMediaTypeFormatter.cs" />
     <Compile Include="Models\SimpleResponse.cs" />
