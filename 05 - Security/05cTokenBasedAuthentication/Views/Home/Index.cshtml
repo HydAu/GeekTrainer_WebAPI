@@ -1,0 +1,62 @@
+﻿<div class="jumbotron">
+    <h1>Token-based Authentication</h1>
+    <div id="login">
+        <label for="username">Username:</label>
+        <input name="username" type="text" id="username"/>
+        <label for="password">Password:</label>
+        <input name="password" type="password" id="password"/>
+        <button id="btnLogin">Login</button>
+        <div class="text-danger" id="errorInfo"></div>
+    </div>
+    <div id="valuesApi">
+        <button id="btnGetValues">Get Values</button>
+        <div id="result"></div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        (function() {
+            var token = '';
+            $(function () {
+
+                $('#btnGetValues').click(function() {
+                    $.ajax({
+                        url: '/api/values',
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader("Authorization", "Bearer " + token);
+                        },
+                        success: function(data) {
+                            $("#result").text("Success: " + data.join(","));
+                        },
+                        error: function(err) {
+                            $("#result").text(err.statusText);
+                        }
+                    });
+                });
+
+                $('#btnLogin').click(function () {
+                    $('#btnLogin').attr("disabled", "");
+                    var username = $('#username').val();
+                    var password = $('#password').val();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Token',
+                        data: {
+                            grant_type: 'password',
+                            username: username,
+                            password: password
+                        },
+                        success: function(data) {
+                            token = data.access_token;
+                            $('#login').hide('slide');
+                        },
+                        error: function() {
+                            $("#errorInfo").text("The username or password is invalid.");
+                            $("#btnLogin").removeAttr("disabled");
+                        }
+                    });
+                });
+            });
+        })();
+    </script>
+}

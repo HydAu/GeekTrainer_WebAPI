@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05aHostAuthentication", "05aHostAuthentication\05aHostAuthentication.csproj", "{7C1D9F93-CB03-428D-AFB4-993FDDFF9810}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05bMessageHandlerAuthentication", "05bMessageHandlerAuthentication\05bMessageHandlerAuthentication.csproj", "{49E76853-9AB4-42B9-AA54-7A3EB7B2EF78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05cTokenBasedAuthentication", "05cTokenBasedAuthentication\05cTokenBasedAuthentication.csproj", "{FA89B4AD-D4FD-4D9D-B37F-6D7C30C2E69F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C1D9F93-CB03-428D-AFB4-993FDDFF9810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1D9F93-CB03-428D-AFB4-993FDDFF9810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1D9F93-CB03-428D-AFB4-993FDDFF9810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1D9F93-CB03-428D-AFB4-993FDDFF9810}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E76853-9AB4-42B9-AA54-7A3EB7B2EF78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49E76853-9AB4-42B9-AA54-7A3EB7B2EF78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49E76853-9AB4-42B9-AA54-7A3EB7B2EF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49E76853-9AB4-42B9-AA54-7A3EB7B2EF78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA89B4AD-D4FD-4D9D-B37F-6D7C30C2E69F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA89B4AD-D4FD-4D9D-B37F-6D7C30C2E69F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA89B4AD-D4FD-4D9D-B37F-6D7C30C2E69F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA89B4AD-D4FD-4D9D-B37F-6D7C30C2E69F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
