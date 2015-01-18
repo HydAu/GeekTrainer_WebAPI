@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    string cookie, form;
+    AntiForgery.GetTokens(null, out cookie, out form);
+}
+
+<div class="jumbotron">
+    <h1>Anti-forgery</h1>
+    <div class="row"><button class="btn btn-danger" id="btnNo">Without Token</button></div>
+    <div class="row"><button class="btn btn-success" id="btnYes">With Token</button></div>
+    <div class="row"><span id="result">Waiting...</span></div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            var tokens = "@cookie" + ":" + "@form";
+            var url = "@Url.HttpRouteUrl("DefaultApi", new {controller = "Forgery"})";
+
+            function doRequest(useToken) {
+
+                var config = {
+                    url: url,
+                    type: 'post',
+                    success: function (data) {
+                        $('#result').text(data);
+                    },
+                    error: function (err) {
+                        $("#result").text(err.status + " - " + err.statusText +
+                            " (" + err.responseText + ")");
+                    }
+                };
+
+                if (useToken) {
+                    config.headers = {
+                        "AntiForgeryToken": tokens
+                    }
+                };
+
+                $.ajax(config);
+            }
+
+            $("#btnNo").click(function () {
+                doRequest(false);
+            });
+
+            $("#btnYes").click(function() {
+                doRequest(true);
+            });
+        });
+    </script>
+}
