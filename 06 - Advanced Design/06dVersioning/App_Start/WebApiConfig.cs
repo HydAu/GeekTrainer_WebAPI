@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Dispatcher;
+using _06dVersioning.Version;
 
 namespace _06dVersioning
 {
@@ -16,9 +15,11 @@ namespace _06dVersioning
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                routeTemplate: "api/{controller}/{version}/{id}",
+                defaults: new { version = RouteParameter.Optional, id = RouteParameter.Optional }
+            );       
+          
+            config.Services.Replace(typeof(IHttpControllerSelector), new VersionControllerSelector(config));
         }
     }
 }
