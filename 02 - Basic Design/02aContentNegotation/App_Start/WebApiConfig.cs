@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Mvc;
+using _02aContentNegotation.Areas.HelpPage;
 
 namespace _02aContentNegotation
 {
@@ -18,7 +20,9 @@ namespace _02aContentNegotation
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );       
+     
+            AreaRegistration.RegisterAllAreas();
         }
     }
 }
