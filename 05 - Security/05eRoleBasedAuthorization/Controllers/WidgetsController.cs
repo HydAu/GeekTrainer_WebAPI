@@ -16,14 +16,14 @@ namespace _05eRoleBasedAuthorization.Controllers
         }
 
         [Route("ivision")]
-        [Authorize(Roles="ivision")]
+        [Authorize(Roles="ivision,admin")]
         public IHttpActionResult GetIVision()
         {
             return Ok(WidgetRepo.Get(true, false).ToList());
         }
 
         [Route("microsoft")]
-        [Authorize(Roles="microsoft")]
+        [Authorize(Roles="microsoft,admin")]
         public IHttpActionResult GetMicrosoft()
         {
             return Ok(WidgetRepo.Get(false, true).ToList());          
