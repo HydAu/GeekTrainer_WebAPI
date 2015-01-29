@@ -7,6 +7,11 @@ namespace _06bTypeConverters.Models
     [TypeConverter(typeof(DemoVector))]
     public class DemoVectorConverter : TypeConverter 
     {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return false;
+        }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof (string) || base.CanConvertFrom(context, sourceType);
